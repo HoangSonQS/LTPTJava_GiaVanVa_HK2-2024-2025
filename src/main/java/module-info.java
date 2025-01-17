@@ -1,11 +1,7 @@
-module gvv.ltptjava_gvv_hk220242025 {
-    requires javafx.controls;
+module module_name {
     requires javafx.fxml;
+    requires javafx.controls;
+    requires static lombok;
+    requires jakarta.persistence;
 
-    requires org.controlsfx.controls;
-    requires com.dlsc.formsfx;
-    requires org.kordamp.bootstrapfx.core;
-
-    opens gvv.ltptjava_gvv_hk220242025 to javafx.fxml;
-    exports gvv.ltptjava_gvv_hk220242025;
 }
