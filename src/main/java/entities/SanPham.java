@@ -1,19 +1,23 @@
 package entities;
 
 import enums.LoaiHang;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@Table(name = "SanPhams")
 public class SanPham {
 
     @Id
+    @EqualsAndHashCode.Include
     @Column(name = "MaSP", nullable = false)
     private String maSP;
 
@@ -35,8 +39,11 @@ public class SanPham {
     @Column(name = "ThoiGianCapNhat")
     private LocalDateTime thoiGianCapNhat;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "LoaiHang")
     private LoaiHang loaiHang;
 
-
+    @ManyToMany(mappedBy = "danhSachSanPham")
+    @ToString.Exclude
+    private Set<HoaDon> danhSachHoaDon = new HashSet<>();
 }
