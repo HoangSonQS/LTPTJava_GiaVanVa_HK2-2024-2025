@@ -10,20 +10,33 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Setter
-@Getter
+
 public class SanPham {
 
     @Id
     @Column(name = "MaSP", nullable = false)
     private String maSP;
 
-    @Column(name = "TenSP")
+    @Column(name = "TenSP", nullable = false)
     private String tenSP;
-    private LocalDateTime ngaySX;
-    private LocalDateTime HSD;
-    private double giaBan;
-    private double giaNhap;
-    private double Thue;
+
+    @Column(name = "NhaCC", nullable = false)
+    private String nhaCC;
+
+    @Column(name = "SoLuongTon")
+    private int soLuongTon;
+
+    @Column(name = "GiaNhap")
+    private Double giaNhap;
+
+    @Column(name = "GiaBan")
+    private Double giaBan;
+
+    @Column(name = "ThoiGianCapNhat")
+    private LocalDateTime thoiGianCapNhat;
+
+    @Column(name = "LoaiHang")
     private LoaiHang loaiHang;
+
+
 }
