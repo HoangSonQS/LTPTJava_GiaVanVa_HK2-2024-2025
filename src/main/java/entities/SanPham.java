@@ -43,7 +43,11 @@ public class SanPham {
     @Column(name = "LoaiHang")
     private LoaiHang loaiHang;
 
-    @ManyToMany(mappedBy = "danhSachSanPham")
+    @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private Set<HoaDon> danhSachHoaDon = new HashSet<>();
+    private Set<ChiTietHoaDon_SanPham> chiTietHoaDonSanPhams = new HashSet<>();
+
+    @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<ChiTietSanPham_PhieuNhap> chiTietSanPhamPhieuNhaps = new HashSet<>();
 }
