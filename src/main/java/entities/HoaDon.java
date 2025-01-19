@@ -38,4 +38,8 @@ public class HoaDon {
     @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<ChiTietHoaDon_SanPham> chiTietHoaDonSanPhams = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "MaNV", nullable = false)
+    private NhanVien nhanVien;
 }
