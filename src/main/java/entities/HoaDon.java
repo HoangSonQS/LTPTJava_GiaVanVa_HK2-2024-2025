@@ -2,7 +2,6 @@ package entities;
 
 import enums.PhuongThucThanhToan;
 import jakarta.persistence.*;
-
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
@@ -36,10 +35,7 @@ public class HoaDon {
     @Column(name = "ThanhTien")
     private double thanhTien;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "ChiTietHoaDon_SanPham",
-            joinColumns = @JoinColumn(name = "MaHD"),
-            inverseJoinColumns = @JoinColumn(name = "MaSP"))
+    @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private Set<SanPham> danhSachSanPham = new HashSet<>();
+    private Set<ChiTietHoaDon_SanPham> chiTietHoaDonSanPhams = new HashSet<>();
 }
