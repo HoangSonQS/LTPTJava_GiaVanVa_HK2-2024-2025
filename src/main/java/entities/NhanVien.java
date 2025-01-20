@@ -16,16 +16,16 @@ public class NhanVien {
 
     @Id
     @EqualsAndHashCode.Include
-    @Column(name = "maNV", nullable = false)
+    @Column(name = "MaNV", nullable = false)
     private String maNV;
 
-    @Column(name = "tenNV")
+    @Column(name = "TenNV")
     private String tenNV;
-    @Column(name = "email")
+    @Column(name = "Email")
     private String email;
-    @Column(name = "sdt")
+    @Column(name = "Sdt")
     private String sdt;
-    @Column(name = "ngaySinh")
+    @Column(name = "NgaySinh")
     private LocalDate ngaySinh;
     @Column(name = "ChucVu")
     private ChucVu chucVu;

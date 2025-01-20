@@ -24,18 +24,18 @@ import java.time.LocalDate;
 public class CaLam {
     @Id
     @EqualsAndHashCode.Include
-    @Column(name = "maCa", nullable = false)
+    @Column(name = "MaCa", nullable = false)
     private String maCa;
 
-    @Column(name = "tenCa")
+    @Column(name = "TenCa")
     private String tenCa;
 
-    @Column(name = "giobatDau")
+    @Column(name = "GiobatDau")
     private LocalDate gioBatDau;
 
-    @Column(name = "gioKetThuc")
+    @Column(name = "GioKetThuc")
     private LocalDate gioKetThuc;
 
-    @Column(name = "trangThai")
+    @Column(name = "TrangThai")
     private boolean trangThai;
 }
