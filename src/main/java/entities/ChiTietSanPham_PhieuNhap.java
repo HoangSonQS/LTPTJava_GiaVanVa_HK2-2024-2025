@@ -1,17 +1,15 @@
 package entities;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "ChiTietSanPham_PhieuNhap")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Getter
-@Setter
-@ToString
 
 public class ChiTietSanPham_PhieuNhap {
     @EmbeddedId

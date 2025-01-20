@@ -8,7 +8,10 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "SanPhams")
@@ -34,6 +37,12 @@ public class SanPham {
     @Column(name = "GiaBan")
     private Double giaBan;
 
+    @Column(name = "NgaySX")
+    private LocalDateTime ngaySX;
+
+    @Column(name = "HanSD")
+    private LocalDateTime hanSD;
+
     @Column(name = "ThoiGianCapNhat")
     private LocalDateTime thoiGianCapNhat;
 
@@ -48,4 +57,5 @@ public class SanPham {
     @OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<ChiTietSanPham_PhieuNhap> chiTietSanPhamPhieuNhaps = new HashSet<>();
+
 }

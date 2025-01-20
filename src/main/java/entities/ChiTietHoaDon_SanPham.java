@@ -3,13 +3,13 @@ package entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "ChiTietHoaDon_SanPham")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Getter
-@Setter
-@ToString
 public class ChiTietHoaDon_SanPham {
 
     @EmbeddedId

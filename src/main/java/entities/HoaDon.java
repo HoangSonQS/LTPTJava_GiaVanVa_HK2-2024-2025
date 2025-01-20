@@ -2,15 +2,16 @@ package entities;
 
 import enums.PhuongThucThanhToan;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "HoaDons")
@@ -21,8 +22,11 @@ public class HoaDon {
     @Column(name = "MaHD", nullable = false)
     private String maHD;
 
-    @Column(name = "MaNV", nullable = false)
+    @Column(name = "MaNV", nullable = false, insertable = false, updatable = false)
     private String maNV;
+
+    @Column(name = "MaKH", nullable = true, insertable = false, updatable = false)
+    private String maKH;
 
     @Column(name = "ThoiGian", nullable = false)
     private LocalDateTime thoiGian;
@@ -48,4 +52,8 @@ public class HoaDon {
     @ManyToOne
     @JoinColumn(name = "MaKH", nullable = false)
     private KhachHang khachHang;
+
+    @ManyToOne
+    @JoinColumn(name = "MaCa", nullable = false)
+    private CaLam caLam;
 }

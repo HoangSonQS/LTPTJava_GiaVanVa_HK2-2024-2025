@@ -2,15 +2,16 @@ package entities;
 
 import enums.ChucVu;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "NhanVien")
@@ -23,6 +24,10 @@ public class NhanVien {
 
     @Column(name = "TenNV")
     private String tenNV;
+    @Column(name = "CCCD")
+    private String cccd;
+    @Column(name = "DiaChi")
+    private String diaChi;
     @Column(name = "Email")
     private String email;
     @Column(name = "Sdt")

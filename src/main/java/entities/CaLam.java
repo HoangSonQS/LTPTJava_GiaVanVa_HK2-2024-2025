@@ -10,16 +10,18 @@ package entities;/*
  *@version: 1.0
  */
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDate;
-@Data
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "CaLam")
@@ -29,15 +31,20 @@ public class CaLam {
     @Column(name = "MaCa", nullable = false)
     private String maCa;
 
-    @Column(name = "TenCa")
-    private String tenCa;
-
     @Column(name = "GioBatDau")
-    private LocalDate gioBatDau;
+    private LocalDateTime gioBatDau;
 
     @Column(name = "GioKetThuc")
-    private LocalDate gioKetThuc;
+    private LocalDateTime gioKetThuc;
 
     @Column(name = "TrangThai")
     private boolean trangThai;
+
+    @OneToMany(mappedBy = "caLam", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<HoaDon> hoaDons = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "maTaiKhoan", nullable = false)
+    private TaiKhoan taiKhoan;
 }

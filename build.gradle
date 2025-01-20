@@ -1,11 +1,8 @@
 plugins {
     id 'java'
-    id 'application'
-    id 'org.javamodularity.moduleplugin' version '1.8.12'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
-    id 'org.beryx.jlink' version '2.25.0'
 }
 
+group 'iuh.fit'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -23,47 +20,33 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-application {
-    mainModule = 'gvv.ltptjava_gvv_hk220242025'
-    mainClass = 'gvv.ltptjava_gvv_hk220242025.HelloApplication'
-}
-
-javafx {
-    version = '17.0.6'
-    modules = ['javafx.controls', 'javafx.fxml']
-}
-
 dependencies {
-    implementation('org.controlsfx:controlsfx:11.2.1')
-    implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
-        exclude(group: 'org.openjfx')
-    }
-    implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
+    implementation('org.hibernate:hibernate-core:6.4.5.Final')
+    implementation('org.glassfish.jaxb:jaxb-runtime:4.0.5')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation('org.hibernate:hibernate-core:6.0.2.Final')
+    implementation('org.glassfish.jaxb:jaxb-runtime:3.0.2')
+
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.5.1'
+
+    // https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:11.2.3.jre17'
+
+    // https://mvnrepository.com/artifact/net.datafaker/datafaker
+    implementation 'net.datafaker:datafaker:2.4.2'
+
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly 'org.projectlombok:lombok:1.18.36'
+    annotationProcessor('org.projectlombok:lombok:1.18.36')
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 
-    compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
-    implementation('org.hibernate:hibernate-core:6.0.2.Final')
-    implementation('org.glassfish.jaxb:jaxb-runtime:3.0.2')
-    compileOnly 'org.projectlombok:lombok:1.18.36'
-    annotationProcessor 'org.projectlombok:lombok:1.18.36'
-    implementation 'org.mariadb.jdbc:mariadb-java-client:3.5.1'
-    implementation 'net.datafaker:datafaker:2.4.2'
 }
 
 test {
     useJUnitPlatform()
-}
-
-jlink {
-    imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
-    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-    launcher {
-        name = 'app'
-    }
-}
-
-jlinkZip {
-    group = 'distribution'
 }

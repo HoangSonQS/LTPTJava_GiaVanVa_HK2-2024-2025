@@ -1,15 +1,16 @@
 package entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "PhieuNhapHangs")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
