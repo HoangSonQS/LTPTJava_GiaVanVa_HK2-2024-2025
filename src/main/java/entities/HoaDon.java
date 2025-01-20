@@ -21,7 +21,7 @@ public class HoaDon {
     @Column(name = "MaHD", nullable = false)
     private String maHD;
 
-    @Column(name = "MaNV", nullable = false)
+    @Column(name = "MaNV", nullable = false, insertable = false, updatable = false)
     private String maNV;
 
     @Column(name = "ThoiGian", nullable = false)
@@ -48,4 +48,8 @@ public class HoaDon {
     @ManyToOne
     @JoinColumn(name = "MaKH", nullable = false)
     private KhachHang khachHang;
+
+    @ManyToOne
+    @JoinColumn(name = "MaCa", nullable = false)
+    private CaLam caLam;
 }

@@ -10,14 +10,15 @@ package entities;/*
  *@version: 1.0
  */
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
 @Data
 
 @Entity
@@ -40,4 +41,12 @@ public class CaLam {
 
     @Column(name = "TrangThai")
     private boolean trangThai;
+
+    @OneToMany(mappedBy = "caLam", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<HoaDon> hoaDons = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "maTaiKhoan", nullable = false)
+    private TaiKhoan taiKhoan;
 }

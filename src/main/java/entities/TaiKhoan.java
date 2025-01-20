@@ -3,6 +3,10 @@ package entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity
@@ -21,4 +25,7 @@ public class TaiKhoan {
     @Column(name = "matKhau", nullable = false)
     private String matKhau;
 
+    @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private Set<CaLam> caLams = new HashSet<>();
 }
