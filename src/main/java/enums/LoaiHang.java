@@ -12,7 +12,7 @@ public enum LoaiHang {
             case DO_GIA_DUNG:
                 return "Do Gia Dung";
             case THOI_TRANG_VA_PHU_KIEN:
-                return "THOI Trang Va Phu Kien";
+                return "Thoi Trang Va Phu Kien";
             default:
                 return null;
         }
