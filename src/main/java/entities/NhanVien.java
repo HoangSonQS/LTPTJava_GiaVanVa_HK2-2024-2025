@@ -34,7 +34,7 @@ public class NhanVien {
 
     @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
-    private Set<HoaDon> hodDons = new HashSet<>();
+    private Set<HoaDon> hoaDons = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "MaTaiKhoan", referencedColumnName = "maTaiKhoan", nullable = false)
