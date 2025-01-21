@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 @Entity
-@Table(name = "ChiTietHoaDon_SanPham")
+@Table(name = "ChiTietHoaDon_SanPhams")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ChiTietHoaDon_SanPham {
 

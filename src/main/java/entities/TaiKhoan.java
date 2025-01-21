@@ -27,11 +27,11 @@ public class TaiKhoan {
     @Column(name = "ThoiGianDangNhap")
     private LocalDateTime thoiGianDangNhap;
 
-
     //check
     @OneToOne
-    @JoinColumn(name = "MaNV", nullable = false)
+    @JoinColumn(name = "MaNV", nullable = false, unique = true)
     private NhanVien nhanVien;
+
     //check
     @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude

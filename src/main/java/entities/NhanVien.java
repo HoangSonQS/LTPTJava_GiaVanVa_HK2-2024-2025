@@ -37,14 +37,14 @@ public class NhanVien {
     @Column(name = "ChucVu")
     private ChucVu chucVu;
 
+    //check
+    @OneToOne(mappedBy = "nhanVien", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private TaiKhoan taiKhoan;
 
     //check
     @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<HoaDon> hoaDons = new HashSet<>();
 
-    //check
-    @OneToOne(mappedBy = "nhanVien", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
-    private TaiKhoan taiKhoan;
 }
