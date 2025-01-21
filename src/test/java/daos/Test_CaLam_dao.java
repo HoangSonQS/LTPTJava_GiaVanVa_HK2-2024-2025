@@ -1,6 +1,7 @@
 package daos;
 
 import entities.CaLam;
+import entities.NhanVien;
 import entities.TaiKhoan;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -26,9 +27,22 @@ public class Test_CaLam_dao {
         caLamDao = new CaLam_dao();
         emf = Persistence.createEntityManagerFactory("mariadb");
         em = emf.createEntityManager();
+
+        // Create and persist NhanVien entity
+        NhanVien nhanVien = new NhanVien();
+        nhanVien.setMaNV("NV001");
+        nhanVien.setTenNV("Nguyen Van A");
+        em.getTransaction().begin();
+        em.persist(nhanVien);
+        em.getTransaction().commit();
+
+        // Create and persist TaiKhoan entity
         taiKhoan = new TaiKhoan();
         taiKhoan.setMaTaiKhoan("TK001");
-        // Set other necessary fields for TaiKhoan
+        taiKhoan.setTenDangNhap("user1");
+        taiKhoan.setMatKhau("password1");
+        taiKhoan.setThoiGianDangNhap(LocalDateTime.now());
+        taiKhoan.setNhanVien(nhanVien);
 
         em.getTransaction().begin();
         em.persist(taiKhoan);
@@ -50,7 +64,7 @@ public class Test_CaLam_dao {
         caLam.setGioKetThuc(LocalDateTime.now().plusHours(8));
         caLam.setTrangThai(true);
         caLam.setTaiKhoan(taiKhoan);
-
+        System.out.println(caLam);
         caLamDao.create(caLam);
 
         CaLam retrieved = caLamDao.read("CA001");

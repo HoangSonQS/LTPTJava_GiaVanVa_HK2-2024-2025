@@ -3,6 +3,7 @@ package daos;
 import entities.CaLam;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import java.util.List;
 
@@ -12,42 +13,77 @@ public class CaLam_dao {
 
     public void create(CaLam caLam) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(caLam);
-        em.getTransaction().commit();
-        em.close();
+        EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
+            em.persist(caLam);
+            tr.commit();
+        } catch (Exception e) {
+            if (tr.isActive()) {
+                tr.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public CaLam read(String maCa) {
         EntityManager em = emf.createEntityManager();
-        CaLam caLam = em.find(CaLam.class, maCa);
-        em.close();
+        CaLam caLam = null;
+        try {
+            caLam = em.find(CaLam.class, maCa);
+        } finally {
+            em.close();
+        }
         return caLam;
     }
 
     public List<CaLam> readAll() {
         EntityManager em = emf.createEntityManager();
-        List<CaLam> caLams = em.createQuery("SELECT c FROM CaLam c", CaLam.class).getResultList();
-        em.close();
+        List<CaLam> caLams = null;
+        try {
+            caLams = em.createQuery("SELECT c FROM CaLam c", CaLam.class).getResultList();
+        } finally {
+            em.close();
+        }
         return caLams;
     }
 
     public void update(CaLam caLam) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.merge(caLam);
-        em.getTransaction().commit();
-        em.close();
+        EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
+            em.merge(caLam);
+            tr.commit();
+        } catch (Exception e) {
+            if (tr.isActive()) {
+                tr.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
     }
 
     public void delete(String maCa) {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        CaLam caLam = em.find(CaLam.class, maCa);
-        if (caLam != null) {
-            em.remove(caLam);
+        EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
+            CaLam caLam = em.find(CaLam.class, maCa);
+            if (caLam != null) {
+                em.remove(caLam);
+            }
+            tr.commit();
+        } catch (Exception e) {
+            if (tr.isActive()) {
+                tr.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-        em.getTransaction().commit();
-        em.close();
     }
 }
