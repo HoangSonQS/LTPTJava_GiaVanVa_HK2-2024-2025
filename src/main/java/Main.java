@@ -7,7 +7,6 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import net.datafaker.Faker;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -16,116 +15,92 @@ public class Main {
         EntityManager em = Persistence.createEntityManagerFactory("mariadb")
                 .createEntityManager();
 
-        EntityTransaction tr = em.getTransaction();
-        Faker faker = new Faker();
-
-        for (int i = 0; i < 10; i++) {
-            SanPham sanPham = new SanPham();
-            sanPham.setMaSP(faker.idNumber().valid()); // Set the identifier
-            sanPham.setTenSP(faker.commerce().productName());
-            sanPham.setNhaCC(faker.company().name());
-            sanPham.setSoLuongTon(faker.number().numberBetween(1, 100));
-            sanPham.setGiaNhap(faker.number().randomDouble(2, 1, 1000));
-            sanPham.setGiaBan(faker.number().randomDouble(2, 1, 1000));
-            sanPham.setThoiGianCapNhat(LocalDateTime.now());
-            sanPham.setLoaiHang(faker.options().option(LoaiHang.class));
+//        EntityTransaction tr = em.getTransaction();
+//        Faker faker = new Faker();
 //
-//            sanPham.setTenSP(tenSP);
-//            sanPham.setNhaCC(nhaCC);
-//            sanPham.setSoLuongTon(soLuongTon);
-//            sanPham.setGiaNhap(giaNhap);
-//            sanPham.setGiaBan(giaBan);
-//            sanPham.setThoiGianCapNhat(thoiGianCapNhat);
-//            sanPham.setLoaiHang(loaiHang);
+//        for (int i = 0; i < 10; i++) {
 //
-//            NhanVien nhanVien = new NhanVien();
-//            String tenNV = faker.name().fullName();
-//            String cccd = faker.number().digits(12);
-//            String diaChi = faker.address().fullAddress();
-//            String email = faker.internet().emailAddress();
-//            String sdt = faker.phoneNumber().cellPhone();
-//            LocalDate ngaySinh = faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-//            ChucVu chucVu = faker.options().option(ChucVu.class);
+//            // SanPham entity
+//            SanPham sanPham = new SanPham();
+//            sanPham.setMaSP(faker.idNumber().valid()); // Set the identifier
+//            sanPham.setTenSP(faker.commerce().productName());
+//            sanPham.setNhaCC(faker.company().name());
+//            sanPham.setSoLuongTon(faker.number().numberBetween(1, 100));
+//            sanPham.setGiaNhap(faker.number().randomDouble(2, 1, 1000));
+//            sanPham.setGiaBan(faker.number().randomDouble(2, 1, 1000));
+//            sanPham.setThoiGianCapNhat(LocalDateTime.now());
+//            sanPham.setLoaiHang(faker.options().option(LoaiHang.class));
 //
-//            nhanVien.setTenNV(tenNV);
-//            nhanVien.setCccd(cccd);
-//            nhanVien.setDiaChi(diaChi);
-//            nhanVien.setEmail(email);
-//            nhanVien.setSdt(sdt);
-//            nhanVien.setNgaySinh(ngaySinh);
-//            nhanVien.setChucVu(chucVu);
-//
-//            TaiKhoan taiKhoan = new TaiKhoan();
-//            String tenDangNhap = faker.name().username();
-//            String matKhau = faker.internet().password();
-//            LocalDateTime thoiGianDangNhap = LocalDateTime.now();
-//
-//            taiKhoan.setTenDangNhap(tenDangNhap);
-//            taiKhoan.setMatKhau(matKhau);
-//            taiKhoan.setThoiGianDangNhap(thoiGianDangNhap);
-//
-//            PhieuNhapHang phieuNhapHang = new PhieuNhapHang();
-//
-//            String maNV = nhanVien.getMaNV();
-//            String tenNVPhieuNhap = nhanVien.getTenNV();
-//            LocalDateTime thoiGian = LocalDateTime.now();
-//            int tongSoLuongSP = faker.number().numberBetween(1, 100);
-//            double thanhTien = faker.number().randomDouble(2, 1, 1000);
-//
-//            phieuNhapHang.setMaNV(maNV);
-//            phieuNhapHang.setTenNV(tenNVPhieuNhap);
-//            phieuNhapHang.setThoiGian(thoiGian);
-//            phieuNhapHang.setTongSoLuongSP(tongSoLuongSP);
-//            phieuNhapHang.setThanhTien(thanhTien);
-//
-//            ChiTietSanPham_PhieuNhap chiTietSanPhamPhieuNhap = new ChiTietSanPham_PhieuNhap();
-//            int soLuong = faker.number().numberBetween(1, 100);
-//            double donGia = faker.number().randomDouble(2, 1, 1000);
-//
-//            chiTietSanPhamPhieuNhap.setSoLuongSP(soLuong);
-//            chiTietSanPhamPhieuNhap.setDonGia(donGia);
-//
+//            // KhachHang entity
 //            KhachHang khachHang = new KhachHang();
-//            String tenKH = faker.name().fullName();
-//            String sdtKH = faker.phoneNumber().cellPhone();
+//            khachHang.setMaKH(faker.idNumber().valid()); // Set the identifier
+//            khachHang.setTenKH(faker.name().fullName());
+//            khachHang.setSdt(faker.phoneNumber().cellPhone());
 //
-//            khachHang.setTenKH(tenKH);
-//            khachHang.setSdt(sdtKH);
+//            // TaiKhoan entity
+//            TaiKhoan taiKhoan = new TaiKhoan();
+//            taiKhoan.setMaTaiKhoan(faker.idNumber().valid()); // Set the identifier
+//            taiKhoan.setTenDangNhap(faker.name().username());
+//            taiKhoan.setMatKhau(faker.internet().password());
+//            taiKhoan.setThoiGianDangNhap(LocalDateTime.now());
 //
+//            // NhanVien entity
+//            NhanVien nhanVien = new NhanVien();
+//            nhanVien.setMaNV(faker.idNumber().valid()); // Set the identifier
+//            nhanVien.setTenNV(faker.name().fullName());
+//            nhanVien.setCccd(faker.number().digits(12));
+//            nhanVien.setDiaChi(faker.address().fullAddress());
+//            nhanVien.setEmail(faker.internet().emailAddress());
+//            nhanVien.setSdt(faker.phoneNumber().cellPhone());
+//            nhanVien.setNgaySinh(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//            nhanVien.setChucVu(faker.options().option(ChucVu.class));
+//
+//            // PhieuNhapHang entity
+//            PhieuNhapHang phieuNhapHang = new PhieuNhapHang();
+//            phieuNhapHang.setMaPNH(faker.idNumber().valid()); // Set the identifier
+//            phieuNhapHang.setMaNV(nhanVien.getMaNV());
+//            phieuNhapHang.setTenNV(nhanVien.getTenNV());
+//            phieuNhapHang.setThoiGian(LocalDateTime.now());
+//            phieuNhapHang.setTongSoLuongSP(faker.number().numberBetween(1, 100));
+//            phieuNhapHang.setThanhTien(faker.number().randomDouble(2, 1, 1000));
+//
+//            // ChiTietSanPham_PhieuNhap entity
+//            ChiTietSanPham_PhieuNhap chiTietSanPhamPhieuNhap = new ChiTietSanPham_PhieuNhap();
+//            ChiTietSanPham_PhieuNhapId chiTietSanPhamPhieuNhapId = new ChiTietSanPham_PhieuNhapId();
+//            chiTietSanPhamPhieuNhapId.setMaPNH(phieuNhapHang.getMaPNH());
+//            chiTietSanPhamPhieuNhapId.setMaSP(sanPham.getMaSP());
+//            chiTietSanPhamPhieuNhap.setId(chiTietSanPhamPhieuNhapId);
+//            chiTietSanPhamPhieuNhap.setSoLuongSP(faker.number().numberBetween(1, 100));
+//            chiTietSanPhamPhieuNhap.setDonGia(faker.number().randomDouble(2, 1, 1000));
+//
+//            // HoaDon entity
 //            HoaDon hoaDon = new HoaDon();
+//            hoaDon.setMaHD(faker.idNumber().valid()); // Set the identifier
+//            hoaDon.setMaNV(nhanVien.getMaNV());
+//            hoaDon.setMaKH(khachHang.getMaKH());
+//            hoaDon.setThoiGian(LocalDateTime.now());
+//            hoaDon.setTongSoLuongSP(faker.number().numberBetween(1, 100));
+//            hoaDon.setPhuongThucTT(faker.options().option(PhuongThucThanhToan.class));
+//            hoaDon.setThanhTien(faker.number().randomDouble(2, 1, 1000));
 //
-//            String maKH = khachHang.getMaKH();
-//            LocalDateTime thoiGianHD = LocalDateTime.now();
-//            int tongSoLuongSPHD = faker.number().numberBetween(1, 100);
-//            PhuongThucThanhToan phuongThucTT = faker.options().option(PhuongThucThanhToan.class);
-//            double thanhTienHD = faker.number().randomDouble(2, 1, 1000);
-//
-//            hoaDon.setMaNV(maNV);
-//            hoaDon.setMaKH(maKH);
-//            hoaDon.setThoiGian(thoiGianHD);
-//            hoaDon.setTongSoLuongSP(tongSoLuongSPHD);
-//            hoaDon.setPhuongThucTT(phuongThucTT);
-//            hoaDon.setThanhTien(thanhTienHD);
-//
+//            // ChiTietHoaDon_SanPham entity
 //            ChiTietHoaDon_SanPham chiTietHoaDonSanPham = new ChiTietHoaDon_SanPham();
-//            int soLuongSP = faker.number().numberBetween(1, 100);
-//            double donGiaSP = faker.number().randomDouble(2, 1, 1000);
+//            ChiTietHoaDon_SanPhamId chiTietHoaDonSanPhamId = new ChiTietHoaDon_SanPhamId();
+//            chiTietHoaDonSanPhamId.setMaHD(hoaDon.getMaHD());
+//            chiTietHoaDonSanPhamId.setMaSP(sanPham.getMaSP());
+//            chiTietHoaDonSanPham.setId(chiTietHoaDonSanPhamId);
+//            chiTietHoaDonSanPham.setSoLuongSP(faker.number().numberBetween(1, 100));
+//            chiTietHoaDonSanPham.setDonGia(faker.number().randomDouble(2, 1, 1000));
 //
-//            chiTietHoaDonSanPham.setSoLuongSP(soLuongSP);
-//            chiTietHoaDonSanPham.setDonGia(donGiaSP);
-//
+//            // CaLam entity
 //            CaLam caLam = new CaLam();
-//            LocalDateTime gioBatDau = LocalDateTime.now();
-//            LocalDateTime gioKetThuc = LocalDateTime.now();
-//            boolean trangThai = faker.bool().bool();
+//            caLam.setMaCa(faker.idNumber().valid()); // Set the identifier
+//            caLam.setGioBatDau(LocalDateTime.now());
+//            caLam.setGioKetThuc(LocalDateTime.now().plusHours(8));
+//            caLam.setTrangThai(faker.bool().bool());
 //
-//            caLam.setGioBatDau(gioBatDau);
-//            caLam.setGioKetThuc(gioKetThuc);
-//            caLam.setTrangThai(trangThai);
-
-
-            tr.begin();
-            em.persist(sanPham);
+//            tr.begin();
+//            em.persist(sanPham);
 //            em.persist(caLam);
 //            em.persist(taiKhoan);
 //            em.persist(nhanVien);
@@ -134,10 +109,9 @@ public class Main {
 //            em.persist(phieuNhapHang);
 //            em.persist(chiTietHoaDonSanPham);
 //            em.persist(chiTietSanPhamPhieuNhap);
-            tr.commit();
-        }
-
-        em.close();
-
+//            tr.commit();
+//        }
+//
+//        em.close();
     }
 }

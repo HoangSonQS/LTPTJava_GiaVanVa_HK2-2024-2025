@@ -14,7 +14,7 @@ import java.util.Set;
 @ToString
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "NhanVien")
+@Table(name = "NhanViens")
 public class NhanVien {
 
     @Id
@@ -37,11 +37,14 @@ public class NhanVien {
     @Column(name = "ChucVu")
     private ChucVu chucVu;
 
+
+    //check
     @OneToMany(mappedBy = "nhanVien", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<HoaDon> hoaDons = new HashSet<>();
 
-    @OneToOne
-    @JoinColumn(name = "MaTaiKhoan", referencedColumnName = "maTaiKhoan", nullable = false)
+    //check
+    @OneToOne(mappedBy = "nhanVien", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private TaiKhoan taiKhoan;
 }

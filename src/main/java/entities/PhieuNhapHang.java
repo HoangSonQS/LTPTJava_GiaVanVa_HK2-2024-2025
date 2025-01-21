@@ -33,6 +33,7 @@ public class PhieuNhapHang {
     @Column(name = "ThanhTien")
     private double thanhTien;
 
+    //check
     @OneToMany(mappedBy = "phieuNhapHang", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<ChiTietSanPham_PhieuNhap> chiTietSanPhamPhieuNhaps = new HashSet<>();

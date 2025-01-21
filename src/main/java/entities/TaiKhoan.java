@@ -13,7 +13,7 @@ import java.util.Set;
 @ToString
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "TaiKhoan")
+@Table(name = "TaiKhoans")
 public class TaiKhoan {
     @Id
     @EqualsAndHashCode.Include
@@ -27,9 +27,12 @@ public class TaiKhoan {
     @Column(name = "ThoiGianDangNhap")
     private LocalDateTime thoiGianDangNhap;
 
-    @OneToOne(mappedBy = "taiKhoan", cascade = CascadeType.ALL, orphanRemoval = true)
-    private NhanVien nhanVien;
 
+    //check
+    @OneToOne
+    @JoinColumn(name = "MaNV", nullable = false)
+    private NhanVien nhanVien;
+    //check
     @OneToMany(mappedBy = "taiKhoan", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<CaLam> caLams = new HashSet<>();

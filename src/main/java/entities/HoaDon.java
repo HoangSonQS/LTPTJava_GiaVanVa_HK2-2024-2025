@@ -41,18 +41,20 @@ public class HoaDon {
     @Column(name = "ThanhTien")
     private double thanhTien;
 
+
+    //check
     @OneToMany(mappedBy = "hoaDon", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<ChiTietHoaDon_SanPham> chiTietHoaDonSanPhams = new HashSet<>();
-
+    //check
     @ManyToOne
     @JoinColumn(name = "MaNV", nullable = false)
     private NhanVien nhanVien;
-
+    //check
     @ManyToOne
     @JoinColumn(name = "MaKH", nullable = false)
     private KhachHang khachHang;
-
+    //check
     @ManyToOne
     @JoinColumn(name = "MaCa", nullable = false)
     private CaLam caLam;

@@ -24,7 +24,7 @@ import java.util.Set;
 @ToString
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name = "CaLam")
+@Table(name = "CaLams")
 public class CaLam {
     @Id
     @EqualsAndHashCode.Include
@@ -39,11 +39,12 @@ public class CaLam {
 
     @Column(name = "TrangThai")
     private boolean trangThai;
-
+    //check
     @OneToMany(mappedBy = "caLam", cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Set<HoaDon> hoaDons = new HashSet<>();
 
+    //check
     @ManyToOne
     @JoinColumn(name = "maTaiKhoan", nullable = false)
     private TaiKhoan taiKhoan;

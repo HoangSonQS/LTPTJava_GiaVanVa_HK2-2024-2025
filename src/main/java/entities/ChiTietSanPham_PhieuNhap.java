@@ -20,13 +20,13 @@ public class ChiTietSanPham_PhieuNhap {
     @Column(name ="DonGia")
     private double donGia;
 
-
+    //check
     @ManyToOne
     @MapsId("maPNH")
     @JoinColumn(name = "MaPNH", nullable = false)
     @ToString.Exclude
     private PhieuNhapHang phieuNhapHang;
-
+    //check
     @ManyToOne
     @MapsId("maSP")
     @JoinColumn(name = "MaSP", nullable = false)
