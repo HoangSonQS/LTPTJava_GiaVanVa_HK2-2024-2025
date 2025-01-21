@@ -1,3 +1,4 @@
+// src/main/java/daos/ChiTietSanPham_PhieuNhap_dao.java
 package daos;
 
 import entities.ChiTietSanPham_PhieuNhap;
@@ -18,7 +19,7 @@ public class ChiTietSanPham_PhieuNhap_dao {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
-            em.persist(chiTiet);
+            em.merge(chiTiet); // Sử dụng merge thay vì persist
             tr.commit();
             logger.info("Created ChiTietSanPham_PhieuNhap: " + chiTiet);
         } catch (Exception e) {

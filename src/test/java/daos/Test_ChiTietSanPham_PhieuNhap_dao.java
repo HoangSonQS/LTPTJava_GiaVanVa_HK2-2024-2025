@@ -1,13 +1,8 @@
-
+// src/test/java/daos/Test_ChiTietSanPham_PhieuNhap_dao.java
 package daos;
 
-import entities.ChiTietSanPham_PhieuNhap;
-import entities.PhieuNhapHang;
-import entities.SanPham;
-import entities.ChiTietSanPham_PhieuNhapId;
+import entities.*;
 import org.junit.jupiter.api.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -19,60 +14,50 @@ public class Test_ChiTietSanPham_PhieuNhap_dao {
     private ChiTietSanPham_PhieuNhap_dao chiTietDao;
     private SanPham_dao sanPhamDao;
     private PhieuNhapHang_dao phieuNhapHangDao;
+    private NhanVien_dao nhanVienDao;
+    private SanPham sanPham;
+    private PhieuNhapHang phieuNhapHang;
+    private NhanVien nhanVien;
 
     @BeforeAll
     public void setup() {
         chiTietDao = new ChiTietSanPham_PhieuNhap_dao();
         sanPhamDao = new SanPham_dao();
         phieuNhapHangDao = new PhieuNhapHang_dao();
+        nhanVienDao = new NhanVien_dao();
+
+        // Create and persist SanPham entity
+        sanPham = sanPhamDao.read("SP001");
+
+        // Create and persist PhieuNhapHang entity
+        phieuNhapHang = phieuNhapHangDao.read("PNH001");
     }
 
     @Test
     @Order(1)
     public void testCreate() {
-        SanPham sanPham = new SanPham();
-        sanPham.setMaSP("SP001");
-        sanPham.setTenSP("San Pham 1");
-        sanPham.setNhaCC("Nha Cung Cap 1");
-        sanPham.setSoLuongTon(100);
-        sanPham.setGiaNhap(1000.0);
-        sanPham.setGiaBan(1500.0);
-        sanPham.setNgaySX(LocalDateTime.now());
-        sanPham.setHanSD(LocalDateTime.now().plusDays(365));
-        sanPham.setThoiGianCapNhat(LocalDateTime.now());
-        sanPhamDao.create(sanPham);
-
-        PhieuNhapHang phieuNhapHang = new PhieuNhapHang();
-        phieuNhapHang.setMaPNH("PNH001");
-        phieuNhapHang.setMaNV("NV001");
-        phieuNhapHang.setTenNV("Nguyen Van A");
-        phieuNhapHang.setThoiGian(LocalDateTime.now());
-        phieuNhapHang.setTongSoLuongSP(100);
-        phieuNhapHang.setThanhTien(100000.0);
-        phieuNhapHangDao.create(phieuNhapHang);
-
         ChiTietSanPham_PhieuNhap chiTiet = new ChiTietSanPham_PhieuNhap();
         ChiTietSanPham_PhieuNhapId id = new ChiTietSanPham_PhieuNhapId();
-        id.setMaPNH("PNH001");
-        id.setMaSP("SP001");
+        id.setMaPNH(phieuNhapHang.getMaPNH());
+        id.setMaSP(sanPham.getMaSP());
         chiTiet.setId(id);
-        chiTiet.setSanPham(sanPham);
-        chiTiet.setPhieuNhapHang(phieuNhapHang);
         chiTiet.setSoLuongSP(50);
         chiTiet.setDonGia(1000.0);
+        chiTiet.setPhieuNhapHang(phieuNhapHang);
+        chiTiet.setSanPham(sanPham);
         chiTietDao.create(chiTiet);
 
         ChiTietSanPham_PhieuNhap retrieved = chiTietDao.read(chiTiet.getId());
-        assertNotNull(retrieved, "ChiTietSanPham_PhieuNhap should not be null");
-        assertEquals(50, retrieved.getSoLuongSP());
+        assertNotNull(retrieved, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        assertEquals(chiTiet.getSoLuongSP(), retrieved.getSoLuongSP());
     }
 
     @Test
     @Order(2)
     public void testRead() {
         ChiTietSanPham_PhieuNhapId id = new ChiTietSanPham_PhieuNhapId();
-        id.setMaPNH("PNH001");
-        id.setMaSP("SP001");
+        id.setMaPNH(phieuNhapHang.getMaPNH());
+        id.setMaSP(sanPham.getMaSP());
         ChiTietSanPham_PhieuNhap chiTiet = chiTietDao.read(id);
         assertNotNull(chiTiet, "ChiTietSanPham_PhieuNhap should not be null");
         assertEquals(id, chiTiet.getId());
@@ -90,23 +75,23 @@ public class Test_ChiTietSanPham_PhieuNhap_dao {
     @Order(4)
     public void testUpdate() {
         ChiTietSanPham_PhieuNhapId id = new ChiTietSanPham_PhieuNhapId();
-        id.setMaPNH("PNH001");
-        id.setMaSP("SP001");
+        id.setMaPNH(phieuNhapHang.getMaPNH());
+        id.setMaSP(sanPham.getMaSP());
         ChiTietSanPham_PhieuNhap chiTiet = chiTietDao.read(id);
         assertNotNull(chiTiet, "ChiTietSanPham_PhieuNhap should not be null");
         chiTiet.setSoLuongSP(60);
         chiTietDao.update(chiTiet);
 
         ChiTietSanPham_PhieuNhap updated = chiTietDao.read(id);
-        assertEquals(60, updated.getSoLuongSP());
+        assertEquals(chiTiet.getSoLuongSP(), updated.getSoLuongSP());
     }
 
     @Test
     @Order(5)
     public void testDelete() {
         ChiTietSanPham_PhieuNhapId id = new ChiTietSanPham_PhieuNhapId();
-        id.setMaPNH("PNH001");
-        id.setMaSP("SP001");
+        id.setMaPNH(phieuNhapHang.getMaPNH());
+        id.setMaSP(sanPham.getMaSP());
         chiTietDao.delete(id);
         ChiTietSanPham_PhieuNhap deleted = chiTietDao.read(id);
         assertNull(deleted, "ChiTietSanPham_PhieuNhap should be null after deletion");
