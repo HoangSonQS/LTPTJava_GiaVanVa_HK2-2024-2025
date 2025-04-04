@@ -4,17 +4,17 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="mariadb">
-        <class>entities.TaiKhoan</class>
-        <class>entities.CaLam</class>
-        <class>entities.HoaDon</class>
-        <class>entities.NhanVien</class>
-        <class>entities.KhachHang</class>
-        <class>entities.PhieuNhapHang</class>
-        <class>entities.SanPham</class>
-        <class>entities.ChiTietHoaDon_SanPham</class>
-        <class>entities.ChiTietHoaDon_SanPhamId</class>
-        <class>entities.ChiTietSanPham_PhieuNhap</class>
-        <class>entities.ChiTietSanPham_PhieuNhapId</class>
+        <class>iuh.fit.entities.TaiKhoan</class>
+        <class>iuh.fit.entities.CaLam</class>
+        <class>iuh.fit.entities.HoaDon</class>
+        <class>iuh.fit.entities.NhanVien</class>
+        <class>iuh.fit.entities.KhachHang</class>
+        <class>iuh.fit.entities.PhieuNhapHang</class>
+        <class>iuh.fit.entities.SanPham</class>
+        <class>iuh.fit.entities.ChiTietHoaDon_SanPham</class>
+        <class>iuh.fit.entities.ChiTietHoaDon_SanPhamId</class>
+        <class>iuh.fit.entities.ChiTietSanPham_PhieuNhap</class>
+        <class>iuh.fit.entities.ChiTietSanPham_PhieuNhapId</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver"
                       value="org.mariadb.jdbc.Driver" />
