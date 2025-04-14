@@ -1,14 +1,31 @@
 package iuh.fit.daos;
 
 import iuh.fit.entities.HoaDon;
+import iuh.fit.interfaces.HoaDon_interface;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+
+import java.rmi.RemoteException;
+import java.rmi.server.RMIClientSocketFactory;
+import java.rmi.server.RMIServerSocketFactory;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class HoaDon_dao {
+public class HoaDon_dao extends UnicastRemoteObject implements HoaDon_interface {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("mariadb");
+
+    public HoaDon_dao() throws RemoteException {
+    }
+
+    protected HoaDon_dao(int port) throws RemoteException {
+        super(port);
+    }
+
+    protected HoaDon_dao(int port, RMIClientSocketFactory csf, RMIServerSocketFactory ssf) throws RemoteException {
+        super(port, csf, ssf);
+    }
 
     public void create(HoaDon hoaDon) {
         EntityManager em = emf.createEntityManager();

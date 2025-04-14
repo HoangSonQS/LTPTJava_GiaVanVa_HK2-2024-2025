@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import org.junit.jupiter.api.*;
 
+import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Test_CaLam_dao {
     private TaiKhoan taiKhoan;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws RemoteException {
         caLamDao = new CaLam_dao();
         emf = Persistence.createEntityManagerFactory("mariadb");
         em = emf.createEntityManager();
@@ -57,7 +58,7 @@ public class Test_CaLam_dao {
 
     @Test
     @Order(1)
-    public void testCreate() {
+    public void testCreate() throws RemoteException {
         CaLam caLam = new CaLam();
         caLam.setMaCa("CA001");
         caLam.setGioBatDau(LocalDateTime.now());
@@ -74,7 +75,7 @@ public class Test_CaLam_dao {
 
     @Test
     @Order(2)
-    public void testRead() {
+    public void testRead() throws RemoteException {
         CaLam caLam = caLamDao.read("CA001");
         assertNotNull(caLam);
         assertEquals("CA001", caLam.getMaCa());
@@ -82,7 +83,7 @@ public class Test_CaLam_dao {
 
     @Test
     @Order(3)
-    public void testReadAll() {
+    public void testReadAll() throws RemoteException {
         List<CaLam> caLams = caLamDao.readAll();
         assertNotNull(caLams);
         assertTrue(caLams.size() > 0);
@@ -90,7 +91,7 @@ public class Test_CaLam_dao {
 
     @Test
     @Order(4)
-    public void testUpdate() {
+    public void testUpdate() throws RemoteException {
         CaLam caLam = caLamDao.read("CA001");
         assertNotNull(caLam, "CaLam should not be null");
         caLam.setTrangThai(false);
@@ -102,8 +103,12 @@ public class Test_CaLam_dao {
 
     @Test
     @Order(5)
-    public void testDelete() {
-        caLamDao.delete("CA001");
+    public void testDelete() throws RemoteException {
+        try {
+            caLamDao.delete("CA001");
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
         CaLam deleted = caLamDao.read("CA001");
         assertNull(deleted);
     }

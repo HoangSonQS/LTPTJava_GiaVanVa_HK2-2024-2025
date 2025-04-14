@@ -4,6 +4,7 @@ import iuh.fit.entities.SanPham;
 import iuh.fit.enums.LoaiHang;
 import org.junit.jupiter.api.*;
 
+import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,13 +17,13 @@ public class Test_SanPham_dao {
     private SanPham_dao sanPhamDao;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws RemoteException {
         sanPhamDao = new SanPham_dao();
     }
 
     @Test
     @Order(1)
-    public void testCreate() {
+    public void testCreate() throws RemoteException {
         SanPham sanPham = new SanPham();
         sanPham.setMaSP("SP001");
         sanPham.setTenSP("San Pham 1");
@@ -44,7 +45,7 @@ public class Test_SanPham_dao {
 
     @Test
     @Order(2)
-    public void testRead() {
+    public void testRead() throws RemoteException {
         SanPham sanPham = sanPhamDao.read("SP001");
         assertNotNull(sanPham);
         assertEquals("SP001", sanPham.getMaSP());
@@ -52,7 +53,7 @@ public class Test_SanPham_dao {
 
     @Test
     @Order(3)
-    public void testReadAll() {
+    public void testReadAll() throws RemoteException {
         List<SanPham> sanPhams = sanPhamDao.readAll();
         assertNotNull(sanPhams);
         assertTrue(sanPhams.size() > 0);
@@ -60,7 +61,7 @@ public class Test_SanPham_dao {
 
     @Test
     @Order(4)
-    public void testUpdate() {
+    public void testUpdate() throws RemoteException {
         SanPham sanPham = sanPhamDao.read("SP001");
         assertNotNull(sanPham, "SanPham should not be null");
         sanPham.setSoLuongTon(200);
@@ -72,7 +73,7 @@ public class Test_SanPham_dao {
 
     @Test
     @Order(5)
-    public void testDelete() {
+    public void testDelete() throws RemoteException {
         sanPhamDao.delete("SP001");
         SanPham deleted = sanPhamDao.read("SP001");
         assertNull(deleted);

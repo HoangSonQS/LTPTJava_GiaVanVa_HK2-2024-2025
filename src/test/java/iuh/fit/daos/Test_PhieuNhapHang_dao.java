@@ -3,6 +3,7 @@ package iuh.fit.daos;
 import iuh.fit.entities.PhieuNhapHang;
 import org.junit.jupiter.api.*;
 
+import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,13 +16,13 @@ public class Test_PhieuNhapHang_dao {
     private PhieuNhapHang_dao phieuNhapHangDao;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws RemoteException {
         phieuNhapHangDao = new PhieuNhapHang_dao();
     }
 
     @Test
     @Order(1)
-    public void testCreate() {
+    public void testCreate() throws RemoteException {
         PhieuNhapHang phieuNhapHang = new PhieuNhapHang();
         phieuNhapHang.setMaPNH("PNH001");
         phieuNhapHang.setMaNV("NV001");
@@ -39,7 +40,7 @@ public class Test_PhieuNhapHang_dao {
 
     @Test
     @Order(2)
-    public void testRead() {
+    public void testRead() throws RemoteException {
         PhieuNhapHang phieuNhapHang = phieuNhapHangDao.read("PNH001");
         assertNotNull(phieuNhapHang);
         assertEquals("PNH001", phieuNhapHang.getMaPNH());
@@ -47,7 +48,7 @@ public class Test_PhieuNhapHang_dao {
 
     @Test
     @Order(3)
-    public void testReadAll() {
+    public void testReadAll() throws RemoteException {
         List<PhieuNhapHang> phieuNhapHangs = phieuNhapHangDao.readAll();
         assertNotNull(phieuNhapHangs);
         assertTrue(phieuNhapHangs.size() > 0);
@@ -55,7 +56,7 @@ public class Test_PhieuNhapHang_dao {
 
     @Test
     @Order(4)
-    public void testUpdate() {
+    public void testUpdate() throws RemoteException {
         PhieuNhapHang phieuNhapHang = phieuNhapHangDao.read("PNH001");
         assertNotNull(phieuNhapHang, "PhieuNhapHang should not be null");
         phieuNhapHang.setTongSoLuongSP(20);
@@ -67,7 +68,7 @@ public class Test_PhieuNhapHang_dao {
 
     @Test
     @Order(5)
-    public void testDelete() {
+    public void testDelete() throws RemoteException {
         phieuNhapHangDao.delete("PNH001");
         PhieuNhapHang deleted = phieuNhapHangDao.read("PNH001");
         assertNull(deleted);

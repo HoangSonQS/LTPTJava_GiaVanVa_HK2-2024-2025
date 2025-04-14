@@ -5,11 +5,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
 @Embeddable
 @EqualsAndHashCode
-public class ChiTietHoaDon_SanPhamId {
+public class ChiTietHoaDon_SanPhamId implements Serializable {
     private String maHD;
     private String maSP;
 

@@ -11,19 +11,24 @@ package iuh.fit.daos;/*
  */
 
 import iuh.fit.entities.KhachHang;
+import iuh.fit.interfaces.KhachHang_interface;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class KhachHang_dao {
-    private EntityManager em;
+public class KhachHang_dao extends UnicastRemoteObject implements KhachHang_interface {
+    private transient EntityManager em;
 
-    public KhachHang_dao() {
+    public KhachHang_dao() throws RemoteException {
+        super();
         em = Persistence.createEntityManagerFactory("mariadb").createEntityManager();
     }
 
-    public void create(KhachHang khachHang) {
+    @Override
+    public void create(KhachHang khachHang) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
@@ -37,15 +42,18 @@ public class KhachHang_dao {
         }
     }
 
-    public KhachHang read(String maKH) {
+    @Override
+    public KhachHang read(String maKH) throws RemoteException {
         return em.find(KhachHang.class, maKH);
     }
 
-    public List<KhachHang> readAll() {
+    @Override
+    public List<KhachHang> readAll() throws RemoteException {
         return em.createQuery("SELECT k FROM KhachHang k", KhachHang.class).getResultList();
     }
 
-    public void update(KhachHang khachHang) {
+    @Override
+    public void update(KhachHang khachHang) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
@@ -59,7 +67,8 @@ public class KhachHang_dao {
         }
     }
 
-    public void delete(String maKH) {
+    @Override
+    public void delete(String maKH) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();

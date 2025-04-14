@@ -1,16 +1,21 @@
 package iuh.fit.daos;
 
 import iuh.fit.entities.TaiKhoan;
+import iuh.fit.interfaces.TaiKhoan_interface;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class TaiKhoan_dao {
+public class TaiKhoan_dao extends UnicastRemoteObject implements TaiKhoan_interface {
 
     private EntityManager em;
 
-    public TaiKhoan_dao() {
+    public TaiKhoan_dao() throws RemoteException {
+        super();
         em = Persistence.createEntityManagerFactory("mariadb").createEntityManager();
     }
 

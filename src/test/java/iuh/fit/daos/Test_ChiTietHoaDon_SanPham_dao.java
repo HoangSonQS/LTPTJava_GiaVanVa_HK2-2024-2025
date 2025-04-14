@@ -6,20 +6,21 @@ import iuh.fit.entities.HoaDon;
 import iuh.fit.entities.SanPham;
 import org.junit.jupiter.api.*;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class Test_ChiTietHoaDon_SanPham_dao {
+public class Test_ChiTietHoaDon_SanPham_dao{
 
     private ChiTietHoaDon_SanPham_dao chiTietDao;
     private HoaDon hoaDon;
     private SanPham sanPham;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws RemoteException {
         chiTietDao = new ChiTietHoaDon_SanPham_dao();
         hoaDon = new HoaDon_dao().read("HD001");
         sanPham = new SanPham_dao().read("SP001");
@@ -27,7 +28,7 @@ public class Test_ChiTietHoaDon_SanPham_dao {
 
     @Test
     @Order(1)
-    public void testCreate() {
+    public void testCreate() throws RemoteException {
         ChiTietHoaDon_SanPham chiTiet = new ChiTietHoaDon_SanPham();
         ChiTietHoaDon_SanPhamId id = new ChiTietHoaDon_SanPhamId("HD001", "SP001");
         chiTiet.setId(id);
@@ -45,7 +46,7 @@ public class Test_ChiTietHoaDon_SanPham_dao {
 
     @Test
     @Order(2)
-    public void testRead() {
+    public void testRead() throws RemoteException {
         ChiTietHoaDon_SanPhamId id = new ChiTietHoaDon_SanPhamId();
         id.setMaHD(hoaDon.getMaHD());
         id.setMaSP(sanPham.getMaSP());
@@ -56,7 +57,7 @@ public class Test_ChiTietHoaDon_SanPham_dao {
 
     @Test
     @Order(3)
-    public void testReadAll() {
+    public void testReadAll() throws RemoteException {
         List<ChiTietHoaDon_SanPham> chiTiets = chiTietDao.readAll();
         assertNotNull(chiTiets);
         assertTrue(chiTiets.size() > 0);
@@ -64,7 +65,7 @@ public class Test_ChiTietHoaDon_SanPham_dao {
 
     @Test
     @Order(4)
-    public void testUpdate() {
+    public void testUpdate() throws RemoteException {
         ChiTietHoaDon_SanPhamId id = new ChiTietHoaDon_SanPhamId();
         id.setMaHD(hoaDon.getMaHD());
         id.setMaSP(sanPham.getMaSP());
@@ -79,7 +80,7 @@ public class Test_ChiTietHoaDon_SanPham_dao {
 
     @Test
     @Order(5)
-    public void testDelete() {
+    public void testDelete() throws RemoteException {
         ChiTietHoaDon_SanPhamId id = new ChiTietHoaDon_SanPhamId("HD001", "SP001");
         chiTietDao.delete(id);
         ChiTietHoaDon_SanPham deleted = chiTietDao.read(id);

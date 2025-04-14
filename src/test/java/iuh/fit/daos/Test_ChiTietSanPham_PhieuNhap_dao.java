@@ -3,6 +3,8 @@ package iuh.fit.daos;
 
 import iuh.fit.entities.*;
 import org.junit.jupiter.api.*;
+
+import java.rmi.RemoteException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +22,7 @@ public class Test_ChiTietSanPham_PhieuNhap_dao {
     private NhanVien nhanVien;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws RemoteException {
         chiTietDao = new ChiTietSanPham_PhieuNhap_dao();
         sanPhamDao = new SanPham_dao();
         phieuNhapHangDao = new PhieuNhapHang_dao();
@@ -35,7 +37,7 @@ public class Test_ChiTietSanPham_PhieuNhap_dao {
 
     @Test
     @Order(1)
-    public void testCreate() {
+    public void testCreate() throws RemoteException {
         ChiTietSanPham_PhieuNhap chiTiet = new ChiTietSanPham_PhieuNhap();
         ChiTietSanPham_PhieuNhapId id = new ChiTietSanPham_PhieuNhapId();
         id.setMaPNH(phieuNhapHang.getMaPNH());
@@ -54,7 +56,7 @@ public class Test_ChiTietSanPham_PhieuNhap_dao {
 
     @Test
     @Order(2)
-    public void testRead() {
+    public void testRead() throws RemoteException {
         ChiTietSanPham_PhieuNhapId id = new ChiTietSanPham_PhieuNhapId();
         id.setMaPNH(phieuNhapHang.getMaPNH());
         id.setMaSP(sanPham.getMaSP());
@@ -65,7 +67,7 @@ public class Test_ChiTietSanPham_PhieuNhap_dao {
 
     @Test
     @Order(3)
-    public void testReadAll() {
+    public void testReadAll() throws RemoteException {
         List<ChiTietSanPham_PhieuNhap> chiTiets = chiTietDao.readAll();
         assertNotNull(chiTiets, "ChiTietSanPham_PhieuNhap list should not be null");
         assertTrue(chiTiets.size() > 0, "ChiTietSanPham_PhieuNhap list should not be empty");
@@ -73,7 +75,7 @@ public class Test_ChiTietSanPham_PhieuNhap_dao {
 
     @Test
     @Order(4)
-    public void testUpdate() {
+    public void testUpdate() throws RemoteException {
         ChiTietSanPham_PhieuNhapId id = new ChiTietSanPham_PhieuNhapId();
         id.setMaPNH(phieuNhapHang.getMaPNH());
         id.setMaSP(sanPham.getMaSP());
@@ -88,7 +90,7 @@ public class Test_ChiTietSanPham_PhieuNhap_dao {
 
     @Test
     @Order(5)
-    public void testDelete() {
+    public void testDelete() throws RemoteException {
         ChiTietSanPham_PhieuNhapId id = new ChiTietSanPham_PhieuNhapId();
         id.setMaPNH(phieuNhapHang.getMaPNH());
         id.setMaSP(sanPham.getMaSP());

@@ -4,6 +4,7 @@ import iuh.fit.entities.TaiKhoan;
 import iuh.fit.entities.NhanVien;
 import org.junit.jupiter.api.*;
 
+import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Test_TaiKhoan_dao {
     private NhanVien_dao nhanVienDao;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws RemoteException {
         taiKhoanDao = new TaiKhoan_dao();
         nhanVienDao = new NhanVien_dao();
     }

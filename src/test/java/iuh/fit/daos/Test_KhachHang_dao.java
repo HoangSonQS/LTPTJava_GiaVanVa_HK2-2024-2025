@@ -13,6 +13,7 @@ package iuh.fit.daos;/*
 import iuh.fit.entities.KhachHang;
 import org.junit.jupiter.api.*;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,13 +25,13 @@ public class Test_KhachHang_dao {
     private KhachHang_dao khachHangDao;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws RemoteException {
         khachHangDao = new KhachHang_dao();
     }
 
     @Test
     @Order(1)
-    public void testCreate() {
+    public void testCreate() throws RemoteException {
         KhachHang khachHang = new KhachHang();
         khachHang.setMaKH("KH001");
         khachHang.setTenKH("Nguyen Van A");
@@ -45,7 +46,7 @@ public class Test_KhachHang_dao {
 
     @Test
     @Order(2)
-    public void testRead() {
+    public void testRead() throws RemoteException {
         KhachHang khachHang = khachHangDao.read("KH001");
         assertNotNull(khachHang);
         assertEquals("KH001", khachHang.getMaKH());
@@ -53,7 +54,7 @@ public class Test_KhachHang_dao {
 
     @Test
     @Order(3)
-    public void testReadAll() {
+    public void testReadAll() throws RemoteException {
         List<KhachHang> khachHangs = khachHangDao.readAll();
         assertNotNull(khachHangs);
         assertTrue(khachHangs.size() > 0);
@@ -61,7 +62,7 @@ public class Test_KhachHang_dao {
 
     @Test
     @Order(4)
-    public void testUpdate() {
+    public void testUpdate() throws RemoteException {
         KhachHang khachHang = khachHangDao.read("KH001");
         assertNotNull(khachHang, "KhachHang should not be null");
         khachHang.setTenKH("Nguyen Van B");
@@ -73,7 +74,7 @@ public class Test_KhachHang_dao {
 
     @Test
     @Order(5)
-    public void testDelete() {
+    public void testDelete() throws RemoteException {
         khachHangDao.delete("KH001");
         KhachHang deleted = khachHangDao.read("KH001");
         assertNull(deleted);

@@ -3,6 +3,8 @@ package iuh.fit.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -10,7 +12,7 @@ import lombok.*;
 @Entity
 @Table(name = "ChiTietHoaDon_SanPhams")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class ChiTietHoaDon_SanPham {
+public class ChiTietHoaDon_SanPham implements Serializable {
 
     @EmbeddedId
     private ChiTietHoaDon_SanPhamId id;

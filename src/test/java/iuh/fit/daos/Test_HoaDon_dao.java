@@ -7,6 +7,7 @@ import iuh.fit.entities.NhanVien;
 import iuh.fit.enums.PhuongThucThanhToan;
 import org.junit.jupiter.api.*;
 
+import java.rmi.RemoteException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class Test_HoaDon_dao {
     private NhanVien nhanVien;
 
     @BeforeAll
-    public void setup() {
+    public void setup() throws RemoteException {
         hoaDonDao = new HoaDon_dao();
         caLam = new CaLam_dao().read("CL001");
         khachHang = new KhachHang_dao().read("KH001");

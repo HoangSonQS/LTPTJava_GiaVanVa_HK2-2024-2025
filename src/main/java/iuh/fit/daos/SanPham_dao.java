@@ -1,20 +1,25 @@
 package iuh.fit.daos;
 
 import iuh.fit.entities.SanPham;
+import iuh.fit.interfaces.SanPham_interface;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class SanPham_dao {
+public class SanPham_dao extends UnicastRemoteObject implements SanPham_interface {
 
-    private EntityManager em;
+    private transient EntityManager em;
 
-    public SanPham_dao() {
+    public SanPham_dao() throws RemoteException {
+        super();
         em = Persistence.createEntityManagerFactory("mariadb").createEntityManager();
     }
 
-    public void create(SanPham sanPham) {
+    @Override
+    public void create(SanPham sanPham) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
@@ -28,15 +33,18 @@ public class SanPham_dao {
         }
     }
 
-    public SanPham read(String maSP) {
+    @Override
+    public SanPham read(String maSP) throws RemoteException {
         return em.find(SanPham.class, maSP);
     }
 
-    public List<SanPham> readAll() {
+    @Override
+    public List<SanPham> readAll() throws RemoteException {
         return em.createQuery("SELECT s FROM SanPham s", SanPham.class).getResultList();
     }
 
-    public void update(SanPham sanPham) {
+    @Override
+    public void update(SanPham sanPham) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
@@ -50,7 +58,8 @@ public class SanPham_dao {
         }
     }
 
-    public void delete(String maSP) {
+    @Override
+    public void delete(String maSP) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();

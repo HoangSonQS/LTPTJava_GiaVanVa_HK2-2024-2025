@@ -1,17 +1,25 @@
 package iuh.fit.daos;
 
 import iuh.fit.entities.CaLam;
+import iuh.fit.interfaces.CaLam_interface;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-public class CaLam_dao {
+public class CaLam_dao extends UnicastRemoteObject implements CaLam_interface {
 
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("mariadb");
 
-    public void create(CaLam caLam) {
+    public CaLam_dao() throws RemoteException {
+    }
+
+    @Override
+    public void create(CaLam caLam) throws RemoteException {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tr = em.getTransaction();
         try {
@@ -28,7 +36,8 @@ public class CaLam_dao {
         }
     }
 
-    public CaLam read(String maCa) {
+    @Override
+    public CaLam read(String maCa) throws RemoteException {
         EntityManager em = emf.createEntityManager();
         CaLam caLam = null;
         try {
@@ -39,7 +48,8 @@ public class CaLam_dao {
         return caLam;
     }
 
-    public List<CaLam> readAll() {
+    @Override
+    public List<CaLam> readAll() throws RemoteException {
         EntityManager em = emf.createEntityManager();
         List<CaLam> caLams = null;
         try {
@@ -50,7 +60,8 @@ public class CaLam_dao {
         return caLams;
     }
 
-    public void update(CaLam caLam) {
+    @Override
+    public void update(CaLam caLam) throws RemoteException {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tr = em.getTransaction();
         try {
@@ -67,7 +78,8 @@ public class CaLam_dao {
         }
     }
 
-    public void delete(String maCa) {
+    @Override
+    public void delete(String maCa) throws RemoteException {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tr = em.getTransaction();
         try {

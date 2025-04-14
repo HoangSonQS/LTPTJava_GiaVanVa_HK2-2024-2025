@@ -4,6 +4,7 @@ import iuh.fit.enums.PhuongThucThanhToan;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "HoaDons")
-public class HoaDon {
+public class HoaDon implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
