@@ -10,6 +10,7 @@ package iuh.fit.entities;/*
  *@version: 1.0
  */
 
+import iuh.fit.utils.SerializationUtils;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +27,7 @@ import java.util.Set;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "CaLams")
 public class CaLam implements Serializable {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = SerializationUtils.CALAM_SERIAL_VERSION_UID;
     @Id
     @EqualsAndHashCode.Include
     @Column(name = "MaCa", nullable = false)

@@ -1,5 +1,6 @@
 package iuh.fit.entities;
 
+import iuh.fit.utils.SerializationUtils;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 public class ChiTietSanPham_PhieuNhap implements Serializable {
+    private static final long serialVersionUID = SerializationUtils.CHITIETSANPHAM_PHIEUNHAP_SERIAL_VERSION_UID;
     @EmbeddedId
     private ChiTietSanPham_PhieuNhapId id;
 

@@ -1,6 +1,7 @@
 package iuh.fit.entities;
 
 import iuh.fit.enums.LoaiHang;
+import iuh.fit.utils.SerializationUtils;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,6 +18,7 @@ import java.util.Set;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "SanPhams")
 public class SanPham implements Serializable {
+    private static final long serialVersionUID = SerializationUtils.SANPHAM_SERIAL_VERSION_UID;
 
     @Id
     @EqualsAndHashCode.Include

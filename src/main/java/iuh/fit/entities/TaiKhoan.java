@@ -1,5 +1,6 @@
 package iuh.fit.entities;
 
+import iuh.fit.utils.SerializationUtils;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "TaiKhoans")
 public class TaiKhoan implements Serializable {
+    private static final long serialVersionUID = SerializationUtils.TAIKHOAN_SERIAL_VERSION_UID;
     @Id
     @EqualsAndHashCode.Include
     @Column(name = "MaTaiKhoan", nullable = false)
