@@ -16,4 +16,7 @@ public interface TaiKhoan_interface extends Remote {
     void update(TaiKhoan taiKhoan) throws RemoteException;
 
     void delete(String maTaiKhoan) throws RemoteException;
+
+    public TaiKhoan findByUsernameandPassword(String username, String password) throws RemoteException;
+
 }

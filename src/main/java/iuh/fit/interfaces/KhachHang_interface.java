@@ -1,6 +1,9 @@
 package iuh.fit.interfaces;
 
 import iuh.fit.entities.KhachHang;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -15,4 +18,6 @@ public interface KhachHang_interface extends Remote {
     void update(KhachHang khachHang) throws RemoteException;
 
     void delete(String maKH) throws RemoteException;
+
+    public KhachHang findByPhone(String sdt) throws RemoteException;
 }

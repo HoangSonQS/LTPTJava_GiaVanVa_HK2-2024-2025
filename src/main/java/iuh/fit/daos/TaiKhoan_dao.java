@@ -19,7 +19,8 @@ public class TaiKhoan_dao extends UnicastRemoteObject implements TaiKhoan_interf
         em = Persistence.createEntityManagerFactory("mariadb").createEntityManager();
     }
 
-    public void create(TaiKhoan taiKhoan) {
+    @Override
+    public void create(TaiKhoan taiKhoan) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
@@ -33,15 +34,18 @@ public class TaiKhoan_dao extends UnicastRemoteObject implements TaiKhoan_interf
         }
     }
 
-    public TaiKhoan read(String maTaiKhoan) {
+    @Override
+    public TaiKhoan read(String maTaiKhoan) throws RemoteException {
         return em.find(TaiKhoan.class, maTaiKhoan);
     }
 
-    public List<TaiKhoan> readAll() {
+    @Override
+    public List<TaiKhoan> readAll() throws RemoteException {
         return em.createQuery("SELECT t FROM TaiKhoan t", TaiKhoan.class).getResultList();
     }
 
-    public void update(TaiKhoan taiKhoan) {
+    @Override
+    public void update(TaiKhoan taiKhoan) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
@@ -55,7 +59,8 @@ public class TaiKhoan_dao extends UnicastRemoteObject implements TaiKhoan_interf
         }
     }
 
-    public void delete(String maTaiKhoan) {
+    @Override
+    public void delete(String maTaiKhoan) throws RemoteException {
         EntityTransaction tr = em.getTransaction();
         try {
             tr.begin();
@@ -69,6 +74,18 @@ public class TaiKhoan_dao extends UnicastRemoteObject implements TaiKhoan_interf
                 tr.rollback();
             }
             e.printStackTrace();
+        }
+    }
+    @Override
+    public TaiKhoan findByUsernameandPassword(String username, String password) throws RemoteException {
+        try {
+            return em.createQuery("SELECT t FROM TaiKhoan t WHERE t.tenDangNhap = :username AND t.matKhau = :password", TaiKhoan.class)
+                    .setParameter("username", username)
+                    .setParameter("password", password)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

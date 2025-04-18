@@ -12,9 +12,8 @@ package iuh.fit.daos;/*
 
 import iuh.fit.entities.KhachHang;
 import iuh.fit.interfaces.KhachHang_interface;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -82,6 +81,21 @@ public class KhachHang_dao extends UnicastRemoteObject implements KhachHang_inte
                 tr.rollback();
             }
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public KhachHang findByPhone(String sdt) throws RemoteException {
+        try {
+            TypedQuery<KhachHang> query = em.createQuery(
+                    "SELECT k FROM KhachHang k WHERE k.sdt = :sdt", KhachHang.class);
+            query.setParameter("sdt", sdt);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; // Trả về null nếu không tìm thấy khách hàng
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
