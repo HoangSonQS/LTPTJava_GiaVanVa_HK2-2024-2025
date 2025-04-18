@@ -25,7 +25,7 @@ public class Test_TaiKhoan_dao {
 
     @Test
     @Order(1)
-    public void testCreate() {
+    public void testCreate() throws RemoteException {
         NhanVien nhanVien = new NhanVien();
         nhanVien.setMaNV("NV001");
         nhanVien.setTenNV("Nguyen Van A");
@@ -47,7 +47,7 @@ public class Test_TaiKhoan_dao {
 
     @Test
     @Order(2)
-    public void testRead() {
+    public void testRead() throws RemoteException {
         TaiKhoan taiKhoan = taiKhoanDao.read("TK001");
         assertNotNull(taiKhoan);
         assertEquals("TK001", taiKhoan.getMaTaiKhoan());
@@ -55,7 +55,7 @@ public class Test_TaiKhoan_dao {
 
     @Test
     @Order(3)
-    public void testReadAll() {
+    public void testReadAll() throws RemoteException {
         List<TaiKhoan> taiKhoans = taiKhoanDao.readAll();
         assertNotNull(taiKhoans);
         assertTrue(taiKhoans.size() > 0);
@@ -63,7 +63,7 @@ public class Test_TaiKhoan_dao {
 
     @Test
     @Order(4)
-    public void testUpdate() {
+    public void testUpdate() throws RemoteException {
         TaiKhoan taiKhoan = taiKhoanDao.read("TK001");
         assertNotNull(taiKhoan, "TaiKhoan should not be null");
         taiKhoan.setMatKhau("newpassword1");
@@ -75,7 +75,7 @@ public class Test_TaiKhoan_dao {
 
     @Test
     @Order(5)
-    public void testDelete() {
+    public void testDelete() throws RemoteException {
         taiKhoanDao.delete("TK001");
         TaiKhoan deleted = taiKhoanDao.read("TK001");
         assertNull(deleted);

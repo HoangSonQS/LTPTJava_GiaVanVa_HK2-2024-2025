@@ -26,6 +26,7 @@ public class RMIServer {
             PhieuNhapHang_dao phieuNhapHangDAO = new PhieuNhapHang_dao();
             ChiTietHoaDon_SanPham_dao chiTietHoaDonSanPhamDAO = new ChiTietHoaDon_SanPham_dao();
             ChiTietSanPham_PhieuNhap_dao chiTietSanPhamPhieuNhapDAO = new ChiTietSanPham_PhieuNhap_dao();
+            NhanVien_dao nhanVienDAO = new NhanVien_dao();
 
             // Bind the DAO instances to the registry
             registry.rebind("taiKhoanDAO", taiKhoanDAO);
@@ -36,6 +37,8 @@ public class RMIServer {
             registry.rebind("phieuNhapHangDAO", phieuNhapHangDAO);
             registry.rebind("chiTietHoaDonSanPhamDAO", chiTietHoaDonSanPhamDAO);
             registry.rebind("chiTietSanPhamPhieuNhapDAO", chiTietSanPhamPhieuNhapDAO);
+            registry.rebind("nhanVienDAO", nhanVienDAO);
+
 
             System.out.println("RMI Server is ready!");
             System.out.println("All DAO services bound to registry");

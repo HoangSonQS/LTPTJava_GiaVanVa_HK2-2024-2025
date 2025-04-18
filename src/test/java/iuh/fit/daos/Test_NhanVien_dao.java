@@ -23,7 +23,7 @@ public class Test_NhanVien_dao {
 
     @Test
     @Order(1)
-    public void testCreate() {
+    public void testCreate() throws RemoteException {
         NhanVien nhanVien = new NhanVien();
         nhanVien.setMaNV("NV001");
         nhanVien.setTenNV("Nguyen Van A");
@@ -43,7 +43,7 @@ public class Test_NhanVien_dao {
 
     @Test
     @Order(2)
-    public void testRead() {
+    public void testRead() throws RemoteException {
         NhanVien nhanVien = nhanVienDao.readNhanVien("NV001");
         assertNotNull(nhanVien);
         assertEquals("NV001", nhanVien.getMaNV());
@@ -51,7 +51,7 @@ public class Test_NhanVien_dao {
 
     @Test
     @Order(3)
-    public void testReadAll() {
+    public void testReadAll() throws RemoteException {
         List<NhanVien> nhanViens = nhanVienDao.readAllNhanVien();
         assertNotNull(nhanViens);
         assertTrue(nhanViens.size() > 0);
@@ -59,7 +59,7 @@ public class Test_NhanVien_dao {
 
     @Test
     @Order(4)
-    public void testUpdate() {
+    public void testUpdate() throws RemoteException {
         NhanVien nhanVien = nhanVienDao.readNhanVien("NV001");
         assertNotNull(nhanVien, "NhanVien should not be null");
         nhanVien.setDiaChi("456 New St");
@@ -71,7 +71,7 @@ public class Test_NhanVien_dao {
 
     @Test
     @Order(5)
-    public void testDelete() {
+    public void testDelete() throws RemoteException {
         nhanVienDao.deleteNhanVien("NV001");
         NhanVien deleted = nhanVienDao.readNhanVien("NV001");
         assertNull(deleted);
