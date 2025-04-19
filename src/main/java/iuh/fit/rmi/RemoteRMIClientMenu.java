@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
-public class RMIClientMenu {
+public class RemoteRMIClientMenu {
     private static Registry registry;
     private static Scanner scanner = new Scanner(System.in);
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -26,30 +26,32 @@ public class RMIClientMenu {
     private static ChiTietHoaDon_SanPham_interface chiTietHoaDonSanPhamDAO;
     private static ChiTietSanPham_PhieuNhap_interface chiTietSanPhamPhieuNhapDAO;
 
+    // Thay đổi SERVER_IP thành địa chỉ IP thực của máy chủ
+    private static final String SERVER_IP = "192.168.1.x"; // Thay đổi thành IP thực của máy chủ
+
     public static void main(String[] args) {
         try {
             // Set system properties for RMI
             System.setProperty("java.security.policy", "rmi.policy");
-            System.setProperty("java.rmi.server.hostname", "LAPTOP-O8OOBHDK");
-
+            
             // Get the registry
-            registry = LocateRegistry.getRegistry("LAPTOP-O8OOBHDK", 9090);
+            registry = LocateRegistry.getRegistry(SERVER_IP, 9090);
 
             // Look up the DAO services from the registry
-            taiKhoanDAO = (TaiKhoan_interface) registry.lookup("rmi://LAPTOP-O8OOBHDK:9090/taiKhoanDAO");
-            caLamDAO = (CaLam_interface) registry.lookup("rmi://LAPTOP-O8OOBHDK:9090/caLamDAO");
-            hoaDonDAO = (HoaDon_interface) registry.lookup("rmi://LAPTOP-O8OOBHDK:9090/hoaDonDAO");
-            sanPhamDAO = (SanPham_interface) registry.lookup("rmi://LAPTOP-O8OOBHDK:9090/sanPhamDAO");
-            khachHangDAO = (KhachHang_interface) registry.lookup("rmi://LAPTOP-O8OOBHDK:9090/khachHangDAO");
-            phieuNhapHangDAO = (PhieuNhapHang_interface) registry.lookup("rmi://LAPTOP-O8OOBHDK:9090/phieuNhapHangDAO");
-            chiTietHoaDonSanPhamDAO = (ChiTietHoaDon_SanPham_interface) registry.lookup("rmi://LAPTOP-O8OOBHDK:9090/chiTietHoaDonSanPhamDAO");
-            chiTietSanPhamPhieuNhapDAO = (ChiTietSanPham_PhieuNhap_interface) registry.lookup("rmi://LAPTOP-O8OOBHDK:9090/chiTietSanPhamPhieuNhapDAO");
+            taiKhoanDAO = (TaiKhoan_interface) registry.lookup("rmi://" + SERVER_IP + ":9090/taiKhoanDAO");
+            caLamDAO = (CaLam_interface) registry.lookup("rmi://" + SERVER_IP + ":9090/caLamDAO");
+            hoaDonDAO = (HoaDon_interface) registry.lookup("rmi://" + SERVER_IP + ":9090/hoaDonDAO");
+            sanPhamDAO = (SanPham_interface) registry.lookup("rmi://" + SERVER_IP + ":9090/sanPhamDAO");
+            khachHangDAO = (KhachHang_interface) registry.lookup("rmi://" + SERVER_IP + ":9090/khachHangDAO");
+            phieuNhapHangDAO = (PhieuNhapHang_interface) registry.lookup("rmi://" + SERVER_IP + ":9090/phieuNhapHangDAO");
+            chiTietHoaDonSanPhamDAO = (ChiTietHoaDon_SanPham_interface) registry.lookup("rmi://" + SERVER_IP + ":9090/chiTietHoaDonSanPhamDAO");
+            chiTietSanPhamPhieuNhapDAO = (ChiTietSanPham_PhieuNhap_interface) registry.lookup("rmi://" + SERVER_IP + ":9090/chiTietSanPhamPhieuNhapDAO");
 
             System.out.println("Connected to RMI Server successfully!");
-
+            
             // Display the main menu
             showMainMenu();
-
+            
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
             e.printStackTrace();
@@ -58,7 +60,7 @@ public class RMIClientMenu {
 
     private static void showMainMenu() {
         int choice = 0;
-
+        
         do {
             System.out.println("\n===== QUAN LY CUA HANG =====");
             System.out.println("1. Quan ly Tai Khoan");
@@ -71,10 +73,10 @@ public class RMIClientMenu {
             System.out.println("8. Quan ly Chi Tiet San Pham - Phieu Nhap");
             System.out.println("0. Thoat");
             System.out.print("Chon chuc nang: ");
-
+            
             try {
                 choice = Integer.parseInt(scanner.nextLine());
-
+                
                 switch (choice) {
                     case 1:
                         manageTaiKhoan();
@@ -117,10 +119,10 @@ public class RMIClientMenu {
         } while (choice != 0);
     }
 
-    // Quản lý Tài Khoản
+    // Quan ly Tai Khoan
     private static void manageTaiKhoan() throws Exception {
         int choice = 0;
-
+        
         do {
             System.out.println("\n===== QUAN LY TAI KHOAN =====");
             System.out.println("1. Xem danh sach tai khoan");
@@ -130,12 +132,12 @@ public class RMIClientMenu {
             System.out.println("5. Xoa tai khoan");
             System.out.println("0. Quay lai");
             System.out.print("Chon chuc nang: ");
-
+            
             choice = Integer.parseInt(scanner.nextLine());
-
+            
             switch (choice) {
                 case 1:
-                    // Xem danh sách tài khoản
+                    // Xem danh sach tai khoan
                     List<TaiKhoan> taiKhoans = taiKhoanDAO.readAll();
                     System.out.println("\nDanh sach tai khoan:");
                     for (TaiKhoan tk : taiKhoans) {
@@ -143,7 +145,7 @@ public class RMIClientMenu {
                     }
                     break;
                 case 2:
-                    // Tìm tài khoản theo mã
+                    // Tim tai khoan theo ma
                     System.out.print("Nhap ma tai khoan: ");
                     String maTK = scanner.nextLine();
                     TaiKhoan tk = taiKhoanDAO.read(maTK);
@@ -162,10 +164,10 @@ public class RMIClientMenu {
         } while (choice != 0);
     }
 
-    // Quản lý Ca Làm
+    // Quan ly Ca Lam
     private static void manageCaLam() throws Exception {
         int choice = 0;
-
+        
         do {
             System.out.println("\n===== QUAN LY CA LAM =====");
             System.out.println("1. Xem danh sach ca lam");
@@ -175,12 +177,12 @@ public class RMIClientMenu {
             System.out.println("5. Xoa ca lam");
             System.out.println("0. Quay lai");
             System.out.print("Chon chuc nang: ");
-
+            
             choice = Integer.parseInt(scanner.nextLine());
-
+            
             switch (choice) {
                 case 1:
-                    // Xem danh sách ca làm
+                    // Xem danh sach ca lam
                     List<CaLam> caLams = caLamDAO.readAll();
                     System.out.println("\nDanh sach ca lam:");
                     for (CaLam cl : caLams) {
@@ -188,7 +190,7 @@ public class RMIClientMenu {
                     }
                     break;
                 case 2:
-                    // Tìm ca làm theo mã
+                    // Tim ca lam theo ma
                     System.out.print("Nhap ma ca lam: ");
                     String maCa = scanner.nextLine();
                     CaLam cl = caLamDAO.read(maCa);
@@ -196,14 +198,6 @@ public class RMIClientMenu {
                         System.out.println("Thong tin ca lam: " + cl);
                     } else {
                         System.out.println("Khong tim thay ca lam voi ma " + maCa);
-                    }
-                    break;
-                case 3:
-                    // Thêm ca làm mới
-                    CaLam newCaLam = createCaLam();
-                    if (newCaLam != null) {
-                        caLamDAO.create(newCaLam);
-                        System.out.println("Them ca lam thanh cong!");
                     }
                     break;
                 case 0:
@@ -215,22 +209,22 @@ public class RMIClientMenu {
         } while (choice != 0);
     }
 
-    // Quản lý Hóa Đơn
+    // Quan ly Hoa Don
     private static void manageHoaDon() throws Exception {
         int choice = 0;
-
+        
         do {
             System.out.println("\n===== QUAN LY HOA DON =====");
             System.out.println("1. Xem danh sach hoa don");
             System.out.println("2. Tim hoa don theo ma");
             System.out.println("0. Quay lai");
             System.out.print("Chon chuc nang: ");
-
+            
             choice = Integer.parseInt(scanner.nextLine());
-
+            
             switch (choice) {
                 case 1:
-                    // Xem danh sách hóa đơn
+                    // Xem danh sach hoa don
                     List<HoaDon> hoaDons = hoaDonDAO.readAll();
                     System.out.println("\nDanh sach hoa don:");
                     for (HoaDon hd : hoaDons) {
@@ -238,7 +232,7 @@ public class RMIClientMenu {
                     }
                     break;
                 case 2:
-                    // Tìm hóa đơn theo mã
+                    // Tim hoa don theo ma
                     System.out.print("Nhap ma hoa don: ");
                     String maHD = scanner.nextLine();
                     HoaDon hd = hoaDonDAO.read(maHD);
@@ -257,22 +251,22 @@ public class RMIClientMenu {
         } while (choice != 0);
     }
 
-    // Quản lý Sản Phẩm
+    // Quan ly San Pham
     private static void manageSanPham() throws Exception {
         int choice = 0;
-
+        
         do {
             System.out.println("\n===== QUAN LY SAN PHAM =====");
             System.out.println("1. Xem danh sach san pham");
             System.out.println("2. Tim san pham theo ma");
             System.out.println("0. Quay lai");
             System.out.print("Chon chuc nang: ");
-
+            
             choice = Integer.parseInt(scanner.nextLine());
-
+            
             switch (choice) {
                 case 1:
-                    // Xem danh sách sản phẩm
+                    // Xem danh sach san pham
                     List<SanPham> sanPhams = sanPhamDAO.readAll();
                     System.out.println("\nDanh sach san pham:");
                     for (SanPham sp : sanPhams) {
@@ -280,7 +274,7 @@ public class RMIClientMenu {
                     }
                     break;
                 case 2:
-                    // Tìm sản phẩm theo mã
+                    // Tim san pham theo ma
                     System.out.print("Nhap ma san pham: ");
                     String maSP = scanner.nextLine();
                     SanPham sp = sanPhamDAO.read(maSP);
@@ -299,22 +293,22 @@ public class RMIClientMenu {
         } while (choice != 0);
     }
 
-    // Quản lý Khách Hàng
+    // Quan ly Khach Hang
     private static void manageKhachHang() throws Exception {
         int choice = 0;
-
+        
         do {
             System.out.println("\n===== QUAN LY KHACH HANG =====");
             System.out.println("1. Xem danh sach khach hang");
             System.out.println("2. Tim khach hang theo ma");
             System.out.println("0. Quay lai");
             System.out.print("Chon chuc nang: ");
-
+            
             choice = Integer.parseInt(scanner.nextLine());
-
+            
             switch (choice) {
                 case 1:
-                    // Xem danh sách khách hàng
+                    // Xem danh sach khach hang
                     List<KhachHang> khachHangs = khachHangDAO.readAll();
                     System.out.println("\nDanh sach khach hang:");
                     for (KhachHang kh : khachHangs) {
@@ -322,7 +316,7 @@ public class RMIClientMenu {
                     }
                     break;
                 case 2:
-                    // Tìm khách hàng theo mã
+                    // Tim khach hang theo ma
                     System.out.print("Nhap ma khach hang: ");
                     String maKH = scanner.nextLine();
                     KhachHang kh = khachHangDAO.read(maKH);
@@ -341,22 +335,22 @@ public class RMIClientMenu {
         } while (choice != 0);
     }
 
-    // Quản lý Phiếu Nhập Hàng
+    // Quan ly Phieu Nhap Hang
     private static void managePhieuNhapHang() throws Exception {
         int choice = 0;
-
+        
         do {
             System.out.println("\n===== QUAN LY PHIEU NHAP HANG =====");
             System.out.println("1. Xem danh sach phieu nhap hang");
             System.out.println("2. Tim phieu nhap hang theo ma");
             System.out.println("0. Quay lai");
             System.out.print("Chon chuc nang: ");
-
+            
             choice = Integer.parseInt(scanner.nextLine());
-
+            
             switch (choice) {
                 case 1:
-                    // Xem danh sách phiếu nhập hàng
+                    // Xem danh sach phieu nhap hang
                     List<PhieuNhapHang> phieuNhapHangs = phieuNhapHangDAO.readAll();
                     System.out.println("\nDanh sach phieu nhap hang:");
                     for (PhieuNhapHang pnh : phieuNhapHangs) {
@@ -364,7 +358,7 @@ public class RMIClientMenu {
                     }
                     break;
                 case 2:
-                    // Tìm phiếu nhập hàng theo mã
+                    // Tim phieu nhap hang theo ma
                     System.out.print("Nhap ma phieu nhap hang: ");
                     String maPNH = scanner.nextLine();
                     PhieuNhapHang pnh = phieuNhapHangDAO.read(maPNH);
@@ -383,56 +377,18 @@ public class RMIClientMenu {
         } while (choice != 0);
     }
 
-    // Quản lý Chi Tiết Hóa Đơn - Sản Phẩm
+    // Quan ly Chi Tiet Hoa Don - San Pham
     private static void manageChiTietHoaDonSanPham() {
         System.out.println("\n===== QUAN LY CHI TIET HOA DON - SAN PHAM =====");
         System.out.println("Chuc nang dang phat trien!");
         pressEnterToContinue();
     }
 
-    // Quản lý Chi Tiết Sản Phẩm - Phiếu Nhập
+    // Quan ly Chi Tiet San Pham - Phieu Nhap
     private static void manageChiTietSanPhamPhieuNhap() {
         System.out.println("\n===== QUAN LY CHI TIET SAN PHAM - PHIEU NHAP =====");
         System.out.println("Chuc nang dang phat trien!");
         pressEnterToContinue();
-    }
-
-    // Helper method to create a new CaLam
-    private static CaLam createCaLam() throws Exception {
-        CaLam caLam = new CaLam();
-
-        System.out.println("\n===== THEM CA LAM MOI =====");
-
-        System.out.print("Nhap ma ca: ");
-        String maCa = scanner.nextLine();
-        caLam.setMaCa(maCa);
-
-        System.out.print("Nhap gio bat dau (yyyy-MM-dd HH:mm:ss): ");
-        String gioBatDauStr = scanner.nextLine();
-        LocalDateTime gioBatDau = LocalDateTime.parse(gioBatDauStr, formatter);
-        caLam.setGioBatDau(gioBatDau);
-
-        System.out.print("Nhap gio ket thuc (yyyy-MM-dd HH:mm:ss): ");
-        String gioKetThucStr = scanner.nextLine();
-        LocalDateTime gioKetThuc = LocalDateTime.parse(gioKetThucStr, formatter);
-        caLam.setGioKetThuc(gioKetThuc);
-
-        System.out.print("Nhap trang thai (true/false): ");
-        boolean trangThai = Boolean.parseBoolean(scanner.nextLine());
-        caLam.setTrangThai(trangThai);
-
-        System.out.print("Nhap ma tai khoan: ");
-        String maTaiKhoan = scanner.nextLine();
-        TaiKhoan taiKhoan = taiKhoanDAO.read(maTaiKhoan);
-
-        if (taiKhoan == null) {
-            System.out.println("Khong tim thay tai khoan voi ma " + maTaiKhoan);
-            return null;
-        }
-
-        caLam.setTaiKhoan(taiKhoan);
-
-        return caLam;
     }
 
     private static void pressEnterToContinue() {

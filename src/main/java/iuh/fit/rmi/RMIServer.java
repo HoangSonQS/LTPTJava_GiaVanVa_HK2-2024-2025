@@ -3,6 +3,8 @@ package iuh.fit.rmi;
 import iuh.fit.daos.*;
 import iuh.fit.interfaces.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -11,10 +13,12 @@ public class RMIServer {
     public static void main(String[] args) throws Exception {
         // Set system properties for RMI
         System.setProperty("java.security.policy", "rmi.policy");
-        System.setProperty("java.rmi.server.hostname", "localhost");
+        System.setProperty("java.rmi.server.hostname", "LAPTOP-O8OOBHDK");
 
         // Create and initialize the registry
+        Context context = new InitialContext();
         Registry registry = LocateRegistry.createRegistry(9090);
+
 
         try {
             // Create DAO instances
@@ -29,15 +33,15 @@ public class RMIServer {
             NhanVien_dao nhanVienDAO = new NhanVien_dao();
 
             // Bind the DAO instances to the registry
-            registry.rebind("taiKhoanDAO", taiKhoanDAO);
-            registry.rebind("caLamDAO", caLamDAO);
-            registry.rebind("hoaDonDAO", hoaDonDAO);
-            registry.rebind("sanPhamDAO", sanPhamDAO);
-            registry.rebind("khachHangDAO", khachHangDAO);
-            registry.rebind("phieuNhapHangDAO", phieuNhapHangDAO);
-            registry.rebind("chiTietHoaDonSanPhamDAO", chiTietHoaDonSanPhamDAO);
-            registry.rebind("chiTietSanPhamPhieuNhapDAO", chiTietSanPhamPhieuNhapDAO);
-            registry.rebind("nhanVienDAO", nhanVienDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/taiKhoanDAO", taiKhoanDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/caLamDAO", caLamDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/hoaDonDAO", hoaDonDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/sanPhamDAO", sanPhamDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/khachHangDAO", khachHangDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/phieuNhapHangDAO", phieuNhapHangDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/chiTietHoaDonSanPhamDAO", chiTietHoaDonSanPhamDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/chiTietSanPhamPhieuNhapDAO", chiTietSanPhamPhieuNhapDAO);
+            registry.rebind("rmi://LAPTOP-O8OOBHDK:9090/nhanVienDAO", nhanVienDAO);
 
 
             System.out.println("RMI Server is ready!");
